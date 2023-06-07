@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "3b894f3a-51cd-4cb1-bf11-a19c68d0ef5a",
+		"name": "U5-W2-D3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26374578"
+	},
+	"item": [
+		{
+			"name": "Lista Prenotazioni",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Singola Prenotazione",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/prenotazioni/e7c9592c-0187-414c-a671-96cd4322184e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenotazioni",
+						"e7c9592c-0187-414c-a671-96cd4322184e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inserimento Prenotazione",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"5c1d28fa-0175-4cbd-b42d-b876fc978a51\",\r\n    \"postazioneId\":\"5f1a2514-152d-4d21-85fd-f39d4b2d5dae\",\r\n    \"dataPrenotata\":\"2023-06-29\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/prenotazioni",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenotazioni"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifica Prenotazione",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"5c1d28fa-0175-4cbd-b42d-b876fc978a51\",\r\n    \"postazioneId\":\"5f1a2514-152d-4d21-85fd-f39d4b2d5dae\",\r\n    \"dataPrenotata\":\"2023-06-20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/prenotazioni/a8298ab6-b987-4668-94c2-ee022514c739",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenotazioni",
+						"a8298ab6-b987-4668-94c2-ee022514c739"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminazione Prenotazione",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/prenotazioni/056e59ac-2aa2-4410-a2e0-14b6b3c6e255",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenotazioni",
+						"056e59ac-2aa2-4410-a2e0-14b6b3c6e255"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "prenotazioni",
+			"value": "http://localhost:8080/prenotazioni"
+		}
+	]
+}
