@@ -24,7 +24,7 @@ public class Postazione {
 
 	@Id
 	@GeneratedValue
-	private UUID id;
+	private UUID postazioneId;
 
 	private String descrizione;
 	private Integer numeroMassimoOccupanti;

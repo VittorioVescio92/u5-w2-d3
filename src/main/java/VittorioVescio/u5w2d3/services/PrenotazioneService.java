@@ -1,5 +1,6 @@
 package VittorioVescio.u5w2d3.services;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import VittorioVescio.u5w2d3.entities.Postazione;
 import VittorioVescio.u5w2d3.entities.Prenotazione;
+import VittorioVescio.u5w2d3.entities.User;
+import VittorioVescio.u5w2d3.entities.payloads.BookingPayload;
+import VittorioVescio.u5w2d3.exceptions.BadRequestException;
 import VittorioVescio.u5w2d3.exceptions.NotFoundException;
 import VittorioVescio.u5w2d3.repository.PrenotazioneRepository;
 
@@ -18,6 +23,10 @@ public class PrenotazioneService {
 
 	@Autowired
 	private PrenotazioneRepository prenotazioneRepository;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private PostazioneService postazioneService;
 
 	public Page<Prenotazione> find(int page, int size, String sortBy) {
 		if (size < 0)
@@ -33,4 +42,18 @@ public class PrenotazioneService {
 				.orElseThrow(() -> new NotFoundException("Nessun risultato con questo id"));
 	}
 
+	public Prenotazione create(BookingPayload b) {
+		Postazione postazione = postazioneService.findById(b.getPostazioneId());
+		prenotazioneRepository.findByPostazioneAndDataPrenotata(postazione, b.getDataPrenotata()).ifPresent(p -> {
+			throw new BadRequestException("Postazione occupata per quella data");
+		});
+		LocalDate twoDaysAhead = LocalDate.now().plusDays(2);
+		User user = userService.findById(b.getUserId());
+		if (b.getDataPrenotata().isAfter(twoDaysAhead)) {
+			Prenotazione newPrenotazione = new Prenotazione(user, postazione, b.getDataPrenotata(), LocalDate.now());
+			return prenotazioneRepository.save(newPrenotazione);
+		} else {
+			throw new BadRequestException("Devono esserci almeno due giorni prima della data di presentazione.");
+		}
+	}
 }
